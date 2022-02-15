@@ -9,8 +9,12 @@
 
 ## Frontend
 
+Local
+
 ```
 cd frontend
 npm install
 npm run start
 ```
+
+Deployed link: https://kai-bootcamp.vercel.app/
