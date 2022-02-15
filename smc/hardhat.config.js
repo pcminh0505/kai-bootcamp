@@ -3,7 +3,7 @@ require("dotenv").config();
 
 // Go to https://infura.io/, sign up, create
 // a new App in its dashboard, and replace "KEY" with its key
-const INFURA_API_KEY = "c9f3edf2c9a340cbaa7a96058862910b";
+const INFURA_API_KEY = process.env.INFURA_API_KEY;
 
 // Replace this private key with your Ropsten account private key
 // To export your private key from Metamask, open Metamask and
