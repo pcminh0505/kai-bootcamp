@@ -145,7 +145,6 @@ function Dapp(props) {
 
         <SaleForm
           defaultAccount={defaultAccount}
-          KEEYContract={KEEYContract}
           USDTContract={USDTContract}
           SaleContract={SaleContract}
         />

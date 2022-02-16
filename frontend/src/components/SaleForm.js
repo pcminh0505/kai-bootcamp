@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { BigNumber, ethers } from "ethers";
 import {
   Box,
   Grid,
@@ -11,7 +10,7 @@ import {
 } from "@mui/material";
 
 function SaleForm(props) {
-  const { defaultAccount, USDTContract, KEEYContract, SaleContract } = props;
+  const { defaultAccount, USDTContract, SaleContract } = props;
   // Sale (buying) variables
   const [approveText, setApproveText] = useState("(Need approval)");
 
