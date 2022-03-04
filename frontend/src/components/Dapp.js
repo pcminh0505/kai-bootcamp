@@ -8,6 +8,7 @@ import SaleForm from "./SaleForm";
 import TokenArtifact from "../contracts/Token.json";
 import TokenSaleArtifact from "../contracts/TokenSale.json";
 import contractAddress from "../contracts/contract-address.json";
+import NoWalletDetected from "./NoWalletDetected";
 
 function Dapp(props) {
   // Wallet/Address checking variables
@@ -86,15 +87,20 @@ function Dapp(props) {
       window.location.reload();
     };
 
-    window.ethereum.on("chainChanged", chainChangedHandler);
-    window.ethereum.on("accountsChanged", accountChangedHandler);
+    if (window.ethereum !== undefined) {
+      window.ethereum.on("chainChanged", chainChangedHandler);
+      window.ethereum.on("accountsChanged", accountChangedHandler);
 
-    console.log("Updating account balance...");
-    console.log("Current wallet address: ", defaultAccount[0]);
+      console.log("Updating account balance...");
+      console.log("Current wallet address: ", defaultAccount[0]);
+    }
 
     updateBalance(defaultAccount[0]);
   }, [defaultAccount[0]]);
 
+  if (window.ethereum === undefined) {
+    return <NoWalletDetected />;
+  }
   const connectWalletHandler = () => {
     if (window.ethereum !== undefined) {
       window.ethereum
