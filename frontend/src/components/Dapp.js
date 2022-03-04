@@ -23,39 +23,42 @@ function Dapp(props) {
   const [KEEYContract, setKEEYContract] = useState(undefined);
   const [SaleContract, setSaleContract] = useState(undefined);
 
-  const [USDTBalance, setUSDTBalance] = useState(0);
   const [KEEYBalance, setKEEYBalance] = useState(0);
 
   // Check whether Metamask has been installed
   useEffect(() => {
+    const setContract = () => {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      // console.log(signer);
+      const USDTContractData = new ethers.Contract(
+        contractAddress.USDT,
+        TokenArtifact.abi,
+        signer
+      );
+      setUSDTContract(USDTContractData);
+      const KEEYContractData = new ethers.Contract(
+        contractAddress.KEEY,
+        TokenArtifact.abi,
+        signer
+      );
+      setKEEYContract(KEEYContractData);
+
+      const SaleContractData = new ethers.Contract(
+        contractAddress.SaleContract,
+        TokenSaleArtifact.abi,
+        signer
+      );
+      setSaleContract(SaleContractData);
+    };
+
     if (window.ethereum === undefined) {
       setErrorMessage(
         "Please install MetaMask browser extension to interact with the app"
       );
     } else {
       setIsConnected(true);
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
-      // console.log(signer);
-      const USDTContract = new ethers.Contract(
-        contractAddress.USDT,
-        TokenArtifact.abi,
-        signer
-      );
-      setUSDTContract(USDTContract);
-      const KEEYContract = new ethers.Contract(
-        contractAddress.KEEY,
-        TokenArtifact.abi,
-        signer
-      );
-      setKEEYContract(KEEYContract);
-
-      const saleContract = new ethers.Contract(
-        contractAddress.SaleContract,
-        TokenSaleArtifact.abi,
-        new ethers.providers.Web3Provider(window.ethereum).getSigner()
-      );
-      setSaleContract(saleContract);
+      setContract();
     }
   }, [isConnected]);
 
@@ -66,10 +69,6 @@ function Dapp(props) {
 
   const updateBalance = async (account) => {
     try {
-      let USDTBalance = await USDTContract.balanceOf(account);
-      console.log("Fetching USDT balance...");
-      setUSDTBalance((USDTBalance / 1000000).toString());
-
       let KEEYBalance = await KEEYContract.balanceOf(account);
       console.log("Fetching KEEY balance...");
       setKEEYBalance(KEEYBalance.toString());
@@ -143,10 +142,6 @@ function Dapp(props) {
 
         <Grid container justifyContent="center">
           <Typography>KEEY Balance: {KEEYBalance} KEEY</Typography>
-        </Grid>
-
-        <Grid container justifyContent="center">
-          <Typography>USDT Balance: {USDTBalance} USDT</Typography>
         </Grid>
 
         <SaleForm

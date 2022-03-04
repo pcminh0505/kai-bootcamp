@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
+  Alert,
   Box,
   Grid,
   Typography,
@@ -18,15 +19,29 @@ function SaleForm(props) {
   const [fixedBuyPrice] = useState(100000);
   const [totalUSDT, setTotalUSDT] = useState(amount * fixedBuyPrice);
   const [remainingKEEY, setRemainingKEEY] = useState(0);
+  const [USDTBalance, setUSDTBalance] = useState(0);
 
-  console.log("Call account from buyform", defaultAccount);
+  const [errorMessage, setErrorMessage] = useState("");
 
   // First render buy form
   useEffect(() => {
     // Get available KEEY to buy
     const getRemainingKEEY = async () => {
-      let remainingKEEY = await SaleContract.getRemainingKEEYInPool();
-      setRemainingKEEY(remainingKEEY);
+      try {
+        let remainingKEEY = await SaleContract.getRemainingKEEYInPool();
+        setRemainingKEEY(remainingKEEY);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    const updateBalance = async (account) => {
+      try {
+        let USDTBalanceData = await USDTContract.balanceOf(account);
+        setUSDTBalance((USDTBalanceData / 1000000).toString());
+      } catch (err) {
+        console.log("error: ", err);
+      }
     };
 
     // Check USDT spending approval
@@ -37,7 +52,7 @@ function SaleForm(props) {
           SaleContract.address
         );
         console.log("USDT allowance: ", allowance);
-        if (allowance !== 0) {
+        if (!allowance.isZero()) {
           setApproveText("");
         }
       } catch (err) {
@@ -46,6 +61,7 @@ function SaleForm(props) {
     };
 
     getRemainingKEEY();
+    updateBalance(defaultAccount[0]);
     checkUSDTApproval();
   }, [defaultAccount[0]]);
 
@@ -69,31 +85,37 @@ function SaleForm(props) {
     console.log(USDTContract.address);
     console.log(SaleContract.address);
 
-    if (approveText === "") {
-      // Start buying
-      console.log("Start buying...");
-      try {
-        const response = await SaleContract.buyKEEY(totalUSDT * 100000);
-        console.log(response);
-      } catch (err) {
-        console.log("error: ", err);
+    if (totalUSDT !== 0) {
+      setErrorMessage("");
+      if (approveText === "") {
+        // Start buying
+        console.log("Start buying...");
+        try {
+          const response = await SaleContract.buyKEEY(totalUSDT * 100000);
+          console.log(response);
+        } catch (err) {
+          console.log("error: ", err);
+        }
+      } else {
+        try {
+          const response = await USDTContract.approve(
+            SaleContract.address,
+            USDTContract.balanceOf(defaultAccount[0])
+          );
+          setApproveText("");
+        } catch (err) {
+          console.log("error: ", err);
+          return;
+        }
       }
     } else {
-      try {
-        const response = await USDTContract.approve(
-          SaleContract.address,
-          USDTContract.balanceOf(defaultAccount[0])
-        );
-        setApproveText("");
-      } catch (err) {
-        console.log("error: ", err);
-        return;
-      }
+      setErrorMessage("Please enter valid amount of KEEY");
     }
   };
 
   return (
     <div>
+      {errorMessage !== "" && <Alert severity="error">{errorMessage}</Alert>}
       <Box
         sx={{
           bgcolor: "#e0e0e0",
@@ -124,6 +146,7 @@ function SaleForm(props) {
               type="text"
               placeholder="0"
               fullWidth
+              helperText={`USDT Balance: ${USDTBalance}`}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="start">
