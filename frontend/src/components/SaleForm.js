@@ -94,7 +94,7 @@ function SaleForm(props) {
           const response = await SaleContract.buyKEEY(totalUSDT * 100000);
           console.log(response);
         } catch (err) {
-          console.log("error: ", err);
+          setErrorMessage(err.error.message);
         }
       } else {
         try {
@@ -115,7 +115,11 @@ function SaleForm(props) {
 
   return (
     <div>
-      {errorMessage !== "" && <Alert severity="error">{errorMessage}</Alert>}
+      {errorMessage !== "" && (
+        <>
+          <Alert severity="error">{errorMessage}</Alert>
+        </>
+      )}
       <Box
         sx={{
           bgcolor: "#e0e0e0",

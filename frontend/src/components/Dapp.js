@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Typography, Button } from "@mui/material";
+import { Grid, Typography, Button, Box } from "@mui/material";
 
 // We'll use ethers to interact with the Ethereum network and our contract
 import { ethers } from "ethers";
@@ -149,6 +149,7 @@ function Dapp(props) {
           USDTContract={USDTContract}
           SaleContract={SaleContract}
         />
+
         <Grid container justifyContent="center">
           <Typography
             variant="subtitle2"
