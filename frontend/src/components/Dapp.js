@@ -50,6 +50,7 @@ function Dapp(props) {
         signer
       );
       setSaleContract(SaleContractData);
+      console.log("Signer neeeeeeee: ", signer);
     };
 
     if (window.ethereum === undefined) {

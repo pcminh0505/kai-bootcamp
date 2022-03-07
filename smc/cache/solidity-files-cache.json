@@ -1,7 +1,7 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "/Users/minhpham/Desktop/kai-bootcamp/contracts/IERC20.sol": {
+    "/Users/minhpham/Desktop/BLOCKCHAIN PLAYGROUND/kai-bootcamp/smc/contracts/IERC20.sol": {
       "lastModificationDate": 1644727833961,
       "contentHash": "252fb25adaf85e7cac2312f63b36ccff",
       "sourceName": "contracts/IERC20.sol",
@@ -36,8 +36,8 @@
         "IERC20"
       ]
     },
-    "/Users/minhpham/Desktop/kai-bootcamp/contracts/TokenSale.sol": {
-      "lastModificationDate": 1644893711153,
+    "/Users/minhpham/Desktop/BLOCKCHAIN PLAYGROUND/kai-bootcamp/smc/contracts/TokenSale.sol": {
+      "lastModificationDate": 1646298155748,
       "contentHash": "9fd736960628a1a7b4f20d8258e8af2f",
       "sourceName": "contracts/TokenSale.sol",
       "solcConfig": {
@@ -77,8 +77,8 @@
         "TokenSale"
       ]
     },
-    "/Users/minhpham/Desktop/kai-bootcamp/node_modules/hardhat/console.sol": {
-      "lastModificationDate": 1644209566412,
+    "/Users/minhpham/Desktop/BLOCKCHAIN PLAYGROUND/kai-bootcamp/smc/node_modules/hardhat/console.sol": {
+      "lastModificationDate": 1644913548507,
       "contentHash": "cc4777addd464ea56fa35b1c45df0591",
       "sourceName": "hardhat/console.sol",
       "solcConfig": {
@@ -112,7 +112,7 @@
         "console"
       ]
     },
-    "/Users/minhpham/Desktop/kai-bootcamp/contracts/Ownable.sol": {
+    "/Users/minhpham/Desktop/BLOCKCHAIN PLAYGROUND/kai-bootcamp/smc/contracts/Ownable.sol": {
       "lastModificationDate": 1644730057878,
       "contentHash": "581ff9edc6cbc8faa879f514fc27fdaa",
       "sourceName": "contracts/Ownable.sol",
@@ -147,7 +147,7 @@
         "Ownable"
       ]
     },
-    "/Users/minhpham/Desktop/kai-bootcamp/contracts/Token.sol": {
+    "/Users/minhpham/Desktop/BLOCKCHAIN PLAYGROUND/kai-bootcamp/smc/contracts/Token.sol": {
       "lastModificationDate": 1644898860655,
       "contentHash": "889706eebece7e727b7cd97ea8638ea6",
       "sourceName": "contracts/Token.sol",
@@ -187,7 +187,7 @@
         "Token"
       ]
     },
-    "/Users/minhpham/Desktop/kai-bootcamp/contracts/SafeMath.sol": {
+    "/Users/minhpham/Desktop/BLOCKCHAIN PLAYGROUND/kai-bootcamp/smc/contracts/SafeMath.sol": {
       "lastModificationDate": 1644490007254,
       "contentHash": "7b303d423a2fa93ba856a385833e5788",
       "sourceName": "contracts/SafeMath.sol",
