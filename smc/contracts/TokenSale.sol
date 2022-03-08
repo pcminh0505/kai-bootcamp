@@ -39,7 +39,7 @@ contract TokenSale is Ownable {
     uint256 _KEEYAmount = _getKEEYFromUSDT(USDTAmount);
     require(_KEEYAmount <= getRemainingKEEYInPool(), "Exceed the available KEEY amount.");
 
-    USDT.transferFrom(msg.sender, address(this), USDTAmount);
+    USDT.transferFrom(msg.sender, owner(), USDTAmount);
     
     KEEY.transfer(msg.sender, _KEEYAmount);
     
